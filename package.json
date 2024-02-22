@@ -16,7 +16,7 @@
     "Mongo",
     "Db"
   ],
-  "author": "Syed Waseem Ashish Vaidya",
+  "author": "Syed Waseem",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
