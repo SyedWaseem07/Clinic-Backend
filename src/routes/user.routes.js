@@ -5,7 +5,9 @@ import {
     loginUser,
     logoutUser,
     getAllAppointments,
-    getAllVisitedPatients
+    getAllVisitedPatients,
+    getSinglePatientDetails,
+    getAllPaymentDetails
 } from "../controllers/user.controller.js"
 import { verifyJWT } from "../middlewares/auth.middleware.js"
 
@@ -21,6 +23,9 @@ router.route("/logout").post(verifyJWT, logoutUser);
 
 router.route("/appointments").get(verifyJWT, getAllAppointments);
 router.route("/allPatientDetails").get(verifyJWT, getAllVisitedPatients);
+
+router.route("/allPayments").get(verifyJWT, getAllPaymentDetails);
+router.route("/:patient_name").get(verifyJWT, getSinglePatientDetails);
 
 
 

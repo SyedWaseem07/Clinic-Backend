@@ -1,7 +1,11 @@
 import mongoose, { Schema } from "mongoose"
 
 const medicineSchema = new Schema({
-    name: {
+    patient_name: {
+        type: String,
+        required: true
+    },
+    medicine_name: {
         type: String,
         required: true
     },

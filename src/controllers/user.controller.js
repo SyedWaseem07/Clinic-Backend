@@ -5,6 +5,7 @@ import { User } from "../models/user.model.js"
 import { uploadOnCloudinary } from "../utils/cloudinary.js"
 import { Visited_Patient_Details } from "../models/visited_patient_details.model.js"
 import { Appointment } from "../models/appointment.model.js"
+import { Bill_Info } from "../models/bill_info.model.js"
 
 // register user
 // post :- /api/v1/users/register
@@ -132,10 +133,80 @@ const getAllVisitedPatients = asyncHandler( async (req, res) => {
 
 // get all bill info
 // Get :- /api/v1/users/allPayments
+const getAllPaymentDetails = asyncHandler( async (req, res) => {
+    const allPayments = await Bill_Info.find();
+    return res.status(200).json(new ApiResponse(200, allPayments, "All Payment details fetched successfully"));
+    
+} )
+
+// get single Patient details
+// Get :- /api/v1/users/:patient_name
+const getSinglePatientDetails = asyncHandler( async (req, res) => { 
+    const { patient_name } = req.params
+    if(!patient_name) throw new ApiError(400, "Patient name required");
+
+    const patientDetails = await Visited_Patient_Details.aggregate([
+        {
+            $match: {patient_name: patient_name}
+        }, 
+        {
+            $lookup: {
+                from: "medicines",
+                localField: "patient_name",
+                foreignField: "patient_name",
+                as : "prescriptions"
+            }
+        },
+        {
+            $lookup: {
+                from : "reports",
+                localField: "patient_name",
+                foreignField: "patient_name",
+                as : "reports"
+            }
+        },
+        {
+            $lookup: {
+                from : "bill_infos",
+                localField: "patient_name",
+                foreignField: "patient_name",
+                as : "payment_details"
+            }
+        },
+        {
+            $addFields: {
+                prescriptions: "$prescriptions",
+                report: "$reports",
+                payment_details: "$payment_details"
+            }
+        },
+        {
+            $project: {
+                patient_name: 1, 
+                mobile_no: 1, 
+                age: 1, 
+                weight: 1, 
+                gender: 1, 
+                symptoms: 1,
+                prescriptions: 1,
+                report: 1,
+                payment_details: 1
+            }
+        }
+    ])
+    if(!patientDetails?.length) throw new ApiError(400, "Patient not found");
+
+    return res.status(200).json(new ApiResponse(200, patientDetails[0], "Patient Details Fetched Successfully"));
+} )
+
+
 export {
     registerUser,
     loginUser,
     logoutUser,
     getAllAppointments,
-    getAllVisitedPatients
+    getAllVisitedPatients,
+    getSinglePatientDetails,
+    getAllPaymentDetails
+
 }
