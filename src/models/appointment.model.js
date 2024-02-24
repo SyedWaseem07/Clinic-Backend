@@ -26,8 +26,7 @@ const appointmentSchema = new Schema({
         required: true
     },
     isVisited: {
-        type: Boolean,
-        required: true
+        type: Boolean
     }
 }, { timeStamps: true });
 
