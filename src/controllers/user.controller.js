@@ -3,6 +3,8 @@ import { ApiError } from "../utils/ApiError.js"
 import { ApiResponse } from "../utils/ApiResponse.js"
 import { User } from "../models/user.model.js"
 import { uploadOnCloudinary } from "../utils/cloudinary.js"
+import { Visited_Patient_Details } from "../models/visited_patient_details.model.js"
+import { Appointment } from "../models/appointment.model.js"
 
 // register user
 // post :- /api/v1/users/register
@@ -114,8 +116,26 @@ const logoutUser = asyncHandler( async (req, res) => {
     .json(new ApiResponse(200, {}, "User logged out successfully"))
 } )
 
+// get all appointments
+// Get :- /api/v1/users/appointments
+const getAllAppointments = asyncHandler( async (req, res) => {
+    const appointments = await Appointment.find();
+    return res.status(200).json(new ApiResponse(200, appointments, "All Appointments fetched successfully"))
+} )
+
+// get all patients
+// Get :- /api/v1/users/allPatientDetails
+const getAllVisitedPatients = asyncHandler( async (req, res) => {
+    const allPatients = await Visited_Patient_Details.find();
+    return res.status(200).json(new ApiResponse(200, allPatients, "All Visited patients details fetched successfully"));
+} )
+
+// get all bill info
+// Get :- /api/v1/users/allPayments
 export {
     registerUser,
     loginUser,
-    logoutUser
+    logoutUser,
+    getAllAppointments,
+    getAllVisitedPatients
 }

@@ -2,12 +2,8 @@ import { asyncHandler } from "../utils/asyncHandler.js"
 import { ApiError } from "../utils/ApiError.js"
 import { ApiResponse } from "../utils/ApiResponse.js"
 import { Appointment } from "../models/appointment.model.js"
-
-// get all appointments
-const getAllAppointments = asyncHandler( async (req, res) => {
-    const appointments = await Appointment.find();
-    return res.status(200).json(new ApiResponse(200, appointments, "All Appointments fetched successfully"))
-} )
+import { Visited_Patient_Details } from "../models/visited_patient_details.model.js"
+import { Bill_Info } from "../models/bill_info.model.js"
 
 // add appointment
 // Post :- /api/v1/users/receptionist/addAppointment
@@ -20,7 +16,6 @@ const addAppointment = asyncHandler( async (req, res) => {
         $and: [{ patient_name }, { date_of_app }, { time_of_app }]
     })
 
-    console.log(existingApp)
     if(existingApp) throw new ApiError(400, "Appointment already booked");
 
     const appointment = await Appointment.create({
@@ -37,11 +32,25 @@ const addAppointment = asyncHandler( async (req, res) => {
 } )
 
 // add patient details
-// get all patients
+
+
 // add bill info
-// get all bill info
+// Get :- /api/v1/users/receptionist/addPaymentDetails
+const addPaymentDetails = asyncHandler( async (req, res) => {
+    const { patient_name, amount, date } = req.body;
+    if(!patient_name || !amount || !date) 
+        throw new ApiError(400, "All feilds are required");
+    
+    const paymentDetails = await Bill_Info.create({
+        patient_name, amount, date
+    })
+
+    if(!paymentDetails) throw new ApiError(500, "Unable to store payment details");
+
+    return res.status(201).json(new ApiResponse(200, paymentDetails, "Payment Deatils added successfully"));
+} )
 
 export {
-    getAllAppointments,
-    addAppointment
+    addAppointment,
+    addPaymentDetails
 }
