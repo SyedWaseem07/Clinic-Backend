@@ -97,7 +97,6 @@ const loginUser = asyncHandler( async (req, res) => {
     .json(new ApiResponse(200, loggedInUser, "User Logged in successfully"));
 } )
 
-
 // logout user
 // Post :- /api/v1/users/logout
 const logoutUser = asyncHandler( async (req, res) => {
@@ -116,6 +115,70 @@ const logoutUser = asyncHandler( async (req, res) => {
     .clearCookie("refreshToken", options)
     .json(new ApiResponse(200, {}, "User logged out successfully"))
 } )
+
+// update user details
+// Post:- /api/v1/users/update:username
+const updateUserDetails = asyncHandler( async (req, res) => {
+    const { username, fullname, mobile_no, role, email, password } = req.body;
+
+    if(!username || !fullname || !mobile_no || !role || !email || !password) 
+        throw new ApiError(400, "All feilds are required except avatar")
+    
+        const user = await User.findByIdAndUpdate(req.user?._id,
+            {
+                $set: {
+                    username, fullname, mobile_no, role, email, password
+                }
+            }, 
+            { new:true }
+        ).select("-password");
+    
+        return res.status(200).json(new ApiResponse(200, user, "Account details updated successfully"));
+
+} )
+
+const changeCurrentPassword = asyncHandler ( async (req, res) => {
+    const { oldPassword, newPassword } = req.body
+    
+    const user = await User.findById(req.user?._id)
+
+    const isPasswordCorrect = await user.isPasswordCorrect(oldPassword)
+
+    if(!isPasswordCorrect) throw new ApiError(400, "Invalid password")
+
+    user.password = newPassword
+    await user.save({ validateBeforeSave: false })
+
+    return res.status(200).json(new ApiResponse(200, {}, "Password changed successfully"));
+} )
+
+const getCurrentUser = asyncHandler( async (req, res) => {
+    return res.status(200).json(new ApiResponse(200, req.user, "Current User details fetched successfully"));
+} )
+
+const updateUserAvatar = asyncHandler( async (req, res) => {
+    // frontend 
+    // multer locally upload
+    // uploadCloudinary
+    // db change
+    const localPath = req.file?.path
+
+    if(!localPath) return new ApiError(400, "Avatar is missing")
+
+    const avatar = await uploadOnCloudinary(localPath)
+
+    if(!avatar.url) return new ApiError(400, "Error while uploading on cloudinary")
+
+    const user = await User.findByIdAndUpdate(req.user?._id,
+        {
+            $set: { avatar: avatar.url }
+        },
+        {new: true}
+    ).select("-password")
+
+    return res.status(200).json(new ApiResponse(200, user, "Avatar updated successfully"));
+})
+
 
 // get all appointments
 // Get :- /api/v1/users/appointments
@@ -207,6 +270,9 @@ export {
     getAllAppointments,
     getAllVisitedPatients,
     getSinglePatientDetails,
-    getAllPaymentDetails
-
+    getAllPaymentDetails,
+    updateUserDetails,
+    getCurrentUser,
+    changeCurrentPassword,
+    updateUserAvatar
 }

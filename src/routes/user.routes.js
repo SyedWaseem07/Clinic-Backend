@@ -7,7 +7,11 @@ import {
     getAllAppointments,
     getAllVisitedPatients,
     getSinglePatientDetails,
-    getAllPaymentDetails
+    getAllPaymentDetails,
+    updateUserDetails,
+    getCurrentUser,
+    changeCurrentPassword,
+    updateUserAvatar
 } from "../controllers/user.controller.js"
 import { verifyJWT } from "../middlewares/auth.middleware.js"
 
@@ -25,8 +29,12 @@ router.route("/appointments").get(verifyJWT, getAllAppointments);
 router.route("/allPatientDetails").get(verifyJWT, getAllVisitedPatients);
 
 router.route("/allPayments").get(verifyJWT, getAllPaymentDetails);
-router.route("/:patient_name").get(verifyJWT, getSinglePatientDetails);
+router.route("/details/:patient_name").get(verifyJWT, getSinglePatientDetails);
 
+router.route("/updateProfile").post(verifyJWT, updateUserDetails);
+router.route("/changePassword").post(verifyJWT, changeCurrentPassword);
+router.route("/changeAvatar").post(verifyJWT, upload.single("avatar"), updateUserAvatar);
 
+router.route("/getCurrentUser").get(verifyJWT, getCurrentUser);
 
 export default router;
