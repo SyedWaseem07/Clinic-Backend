@@ -3,6 +3,7 @@ import cors from "cors"
 import cookieParser from "cookie-parser"
 import userRouter from "./routes/user.routes.js"
 import receiptionistRouter from "./routes/receiptionist.routes.js"
+import doctorRouter from "./routes/doctor.routes.js"
 
 const app = express()
 
@@ -19,5 +20,7 @@ app.use(cookieParser());
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/users/receptionist", receiptionistRouter);
+app.use("/api/v1/users/doctor", doctorRouter);
 
 export { app }
+

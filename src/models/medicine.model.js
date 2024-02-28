@@ -13,6 +13,6 @@ const medicineSchema = new Schema({
         type: String,
         required: true
     }
-}, { timeStamps: true })
+}, { timestamps: true })
 
 export const Medicine = mongoose.model("Medicine", medicineSchema);

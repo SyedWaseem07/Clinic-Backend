@@ -40,7 +40,10 @@ const visited_patient_detailsSchema = new Schema({
     payment_details: {
         type: Schema.Types.ObjectId,
         ref: "Bill_Info"
+    },
+    last_visited: {
+        type: Date
     }
-}, { timeStamps: true })
+}, { timestamps: true })
 
 export const Visited_Patient_Details = mongoose.model("Visited_Patient_Details", visited_patient_detailsSchema)

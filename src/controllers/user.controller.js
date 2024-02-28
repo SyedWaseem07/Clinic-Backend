@@ -78,8 +78,9 @@ const loginUser = asyncHandler( async (req, res) => {
     const existingUser = await User.findOne({username})
 
     if(!existingUser) throw new ApiError(404, "User not found");
+    if(existingUser.role !== role) throw new ApiError(404, "Invalid role choosed");
 
-    const isPasswordCorrect = existingUser.isPasswordCorrect(password);
+    const isPasswordCorrect = await existingUser.isPasswordCorrect(password);
 
     if(!isPasswordCorrect) throw new ApiError(409, "Incorrect Password");
 
@@ -262,6 +263,19 @@ const getSinglePatientDetails = asyncHandler( async (req, res) => {
     return res.status(200).json(new ApiResponse(200, patientDetails[0], "Patient Details Fetched Successfully"));
 } )
 
+// get daily appointments
+// Get :- /api/v1/users/dailyAppointments 
+const getDailyAppointments = asyncHandler( async (req, res) => {
+    const currentDate = new Date();
+    const previousDate = new Date(currentDate - 24 * 60 * 60 * 1000);
+    const dailyApp = await Appointment.find({
+        date_of_app: {
+            $gte: previousDate,
+            $lte: currentDate
+        }
+    })
+    return res.status(200).json(new ApiResponse(200, dailyApp, "Daily Appointments fetched sucessfully"));
+} )
 
 export {
     registerUser,
@@ -274,5 +288,6 @@ export {
     updateUserDetails,
     getCurrentUser,
     changeCurrentPassword,
-    updateUserAvatar
+    updateUserAvatar,
+    getDailyAppointments
 }

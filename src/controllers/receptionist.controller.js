@@ -11,9 +11,11 @@ import { uploadOnCloudinary } from "../utils/cloudinary.js"
 // add appointment
 // Post :- /api/v1/users/receptionist/addAppointment
 const addAppointment = asyncHandler( async (req, res) => {
-    const { patient_name, mobile_no, age, gender, date_of_app, time_of_app} = req.body;
+    let { patient_name, mobile_no, age, gender, date_of_app, time_of_app} = req.body;
     if(!patient_name || !mobile_no || !age || !gender || !date_of_app || !time_of_app)
         throw new ApiError(400, "All feilds are required");
+    date_of_app += "T00:00:00.000Z";
+    date_of_app = new Date(date_of_app)
     
     const existingApp = await Appointment.findOne({
         $and: [{ patient_name }, { date_of_app }, { time_of_app }]
@@ -36,16 +38,30 @@ const addAppointment = asyncHandler( async (req, res) => {
 
 // add patient details
 // Post :- /api/v1/users/receptionist/addPatientDetails
-const addPatientDetails = asyncHandler( async (req, res) => {
-    const { patient_name, mobile_no, age, weight, gender, symptoms } = req.body;
-    if(!patient_name || !mobile_no || !age || !weight || !gender || !symptoms)
+const addNewPatientDetails = asyncHandler( async (req, res) => {
+    let { patient_name, mobile_no, age, weight, gender, symptoms, last_visited } = req.body;
+    if(!patient_name || !mobile_no || !age || !weight || !gender || !symptoms || !last_visited )
         throw new ApiError(400, "All feilds are required");
 
+    last_visited += "T00:00:00.000Z";
+    last_visited = new Date(last_visited);
+
+    const existingPatient = await Visited_Patient_Details.findOne({ patient_name });
+    if(existingPatient) throw new ApiError(400, "Patient already exist");
     const patientDetails = await Visited_Patient_Details.create({
-        patient_name, mobile_no, age, weight, gender, symptoms
+        patient_name, mobile_no, age, weight, gender, symptoms, last_visited
     })
 
     if(!patientDetails) throw new ApiError(500, "Unable to store patient details");
+
+    await Appointment.findOneAndUpdate(
+        {patient_name},
+        {
+            $set: {
+                isVisited: true
+            }
+        }
+    )
 
     const fullPatientDetails = await Visited_Patient_Details.aggregate([
         {
@@ -109,7 +125,8 @@ const addPatientDetails = asyncHandler( async (req, res) => {
                 symptoms: 1,
                 prescriptions: 1,
                 report: 1,
-                payment_details: 1
+                payment_details: 1,
+                last_visited: 1
             }
         }
         
@@ -120,6 +137,113 @@ const addPatientDetails = asyncHandler( async (req, res) => {
     return res.status(200).json(new ApiResponse(200, fullPatientDetails[0], "Patient details fetched successfully"));
 } )
 
+// update patient details
+// Post :- /api/v1/users/receptionist/updatePatientDetails
+const updateExistingPatientDetails = asyncHandler( async (req, res) => {
+    let { patient_name, mobile_no, age, weight, symptoms, last_visited } = req.body;
+    if(!patient_name || !mobile_no || !age || !weight || !symptoms || !last_visited )
+        throw new ApiError(400, "All feilds are required");
+
+    last_visited += "T00:00:00.000Z";
+    last_visited = new Date(last_visited);
+
+    const patientDetails = await Visited_Patient_Details.findOneAndUpdate(
+        {
+            patient_name: patient_name
+        },
+        {
+            $set: {
+                patient_name, mobile_no, age, weight, symptoms, last_visited
+            }
+        },
+        { new: true }
+    )
+    
+    await Appointment.findOneAndUpdate(
+        {
+            patient_name: patient_name
+        },
+        {
+            $set: {
+                isVisited: true
+            }
+        }
+    )
+    if(!patientDetails) throw new ApiError(500, "Unable to update patient details");
+
+    const fullPatientDetails = await Visited_Patient_Details.aggregate([
+        {
+            $match: {
+                patient_name: patient_name
+            }
+        },
+        {
+            $lookup: {
+                from: "medicines",
+                localField: "patient_name",
+                foreignField: "patient_name",
+                as: "prescriptions"
+            }
+        },
+        {
+            $lookup: {
+                from: "reports",
+                localField: "patient_name",
+                foreignField: "patient_name",
+                as: "report"
+            }
+        },
+        {
+            $lookup: {
+                from: "bill_infos",
+                localField: "patient_name",
+                foreignField: "patient_name",
+                as: "payment_details"
+            }
+        },
+        {
+            $set: {
+                prescriptions: "$prescriptions"
+            }
+            // $addFields: {
+            //     prescriptions: {
+                    
+            //     },
+            //     report: "$report",
+            //     payment_details: "$payment_details"
+            // }
+        },
+        {
+            $set: {
+                report: "$report",
+            }
+        },
+        {
+            $set: {
+                payment_details: "$payment_details"
+            }
+        },
+        {
+            $project: {
+                patient_name: 1, 
+                mobile_no: 1, 
+                age: 1, 
+                weight: 1, 
+                gender: 1, 
+                symptoms: 1,
+                prescriptions: 1,
+                report: 1,
+                payment_details: 1,
+                last_visited: 1
+            }
+        }
+        
+    ])
+
+    if(!fullPatientDetails?.length) throw new ApiError(404, "Patient does not exist")
+
+    return res.status(200).json(new ApiResponse(200, fullPatientDetails[0], "Patient details updated successfully"));
+} )
 
 // add medicine details
 // Post:- /api/v1/users/receptionist/addMedicine
@@ -188,5 +312,6 @@ export {
     addPaymentDetails,
     addMedicine,
     addReport,
-    addPatientDetails
+    updateExistingPatientDetails,
+    addNewPatientDetails
 }

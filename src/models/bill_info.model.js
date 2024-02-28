@@ -13,6 +13,6 @@ const bill_infoSchema = new Schema({
         type: String,
         required: true
     },
-}, { timeStamps: true })
+}, { timestamps: true })
 
 export const Bill_Info = mongoose.model("Bill_Info", bill_infoSchema);

@@ -13,6 +13,6 @@ const reportSchema = new Schema({
         type: String,
         required: true
     },
-}, { timeStamps: true })
+}, { timestamps: true })
 
 export const Report = mongoose.model("Report", reportSchema);

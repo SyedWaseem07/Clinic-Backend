@@ -18,7 +18,7 @@ const appointmentSchema = new Schema({
         required: true
     },
     date_of_app: {
-        type: String,
+        type: Date,
         required: true
     },
     time_of_app: {
@@ -26,8 +26,9 @@ const appointmentSchema = new Schema({
         required: true
     },
     isVisited: {
-        type: Boolean
+        type: Boolean,
+        default: false
     }
-}, { timeStamps: true });
+}, { timestamps: true });
 
 export const Appointment = mongoose.model("Appointment", appointmentSchema);
