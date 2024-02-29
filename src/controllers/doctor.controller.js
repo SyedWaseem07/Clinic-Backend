@@ -3,6 +3,7 @@ import { ApiError } from "../utils/ApiError.js"
 import { ApiResponse } from "../utils/ApiResponse.js"
 import { Visited_Patient_Details } from "../models/visited_patient_details.model.js"
 import { Bill_Info } from "../models/bill_info.model.js"
+import { Appointment } from "../models/appointment.model.js"
 // get daily patient count
 // Get:- /api/v1/users/doctor/dailyPatientCountAndRevenue
 const dailyWeeklyMonthlyPatientCount  = asyncHandler( async (req, res) => {
@@ -104,7 +105,25 @@ if(currentDate.getMonth() + 1 === 1 || currentDate.getMonth() + 1 === 3 || curre
      
     return res.status(200).json(new ApiResponse(200, {dailyRevenue, weeklyRevenue, monthlyRevenue}, "Daily, Weekly and monthly patient count fetched sucessfully"))
 } ) 
+
+// Average Appointments per day
+// Get :- /api/v1/users/doctor/averageAppointments
+const averageAppointmentsPerDay = asyncHandler( async (req, res) => {
+    const currentDate = new Date();
+    const previousDate = new Date(currentDate - 6 * 24 * 60 * 60 * 1000);
+    const lastMonthsTotalApp = await Appointment.find({
+        date_of_app: {
+            $gte: previousDate,
+            $lte: currentDate
+        }
+    })
+    console.log(lastMonthsTotalApp.length)
+    const avgAppointments = Math.ceil(lastMonthsTotalApp?.length / 7);
+
+    return res.status(200).json(new ApiResponse(200, { avgAppointments }, "Average appointments per day fetched sucessfully"))
+} )
 export {
     dailyWeeklyMonthlyPatientCount,
-    dailyWeeklyMonthlyRevenue
+    dailyWeeklyMonthlyRevenue,
+    averageAppointmentsPerDay
 }
