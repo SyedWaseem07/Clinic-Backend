@@ -24,7 +24,7 @@ const registerUser = asyncHandler( async (req, res) => {
         throw new ApiError(400, "All feilds are required except avatar")
 
     const existingUser = await User.findOne({
-        $and: [{ fullname }, { role }]
+        $and: [{ fullname }, { role }, { username }]
     })
 
     if(existingUser) throw new ApiError(400, "User already exists")
