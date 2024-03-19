@@ -88,13 +88,8 @@ const loginUser = asyncHandler( async (req, res) => {
 
     const loggedInUser = await User.findById(existingUser._id).select("-password")
 
-    const options = {
-        httpOnly: true,
-        secure: true
-    }
-
-    return res.status(200).cookie("accessToken", accessToken, options)
-    .cookie("refreshToken", refreshToken, options)
+    return res.status(200).cookie("accessToken", accessToken, {httpOnly: true, secure: true, maxAge: 3 * 1000})
+    .cookie("refreshToken", refreshToken, {httpOnly: true, secure: true, maxAge: 10 * 24 * 60 * 60 * 1000})
     .json(new ApiResponse(200, loggedInUser, "User Logged in successfully"));
 } )
 
@@ -277,6 +272,27 @@ const getDailyAppointments = asyncHandler( async (req, res) => {
     return res.status(200).json(new ApiResponse(200, dailyApp, "Daily Appointments fetched sucessfully"));
 } )
 
+// regenerate access token
+// post :- /api/v1/users/refreshAccessToken
+const refreshAccessToken = asyncHandler( async(req, res) => {
+    try {
+        const user = await User.findById(req.user?._id);
+        if(user?.refreshToken !== req.cookies?.refreshToken) 
+            throw new ApiError(400, "Unauthorized request");
+        const accessToken = user.generateAccessToken();
+        const refreshToken = user.generateRefreshToken();
+
+        user.refreshToken = refreshToken;
+        user.save({ validateBeforeSave: false });
+        res.cookie("accessToken", accessToken, {httpOnly: true, secure: true, maxAge: 24 * 60 * 60 * 1000})
+        .cookie("refreshToken", refreshToken, {httpOnly: true, secure: true, maxAge: 10 * 24 * 60 * 60 * 1000})
+        .json(new ApiResponse(200, "Tokens updated successfully"));
+
+    } catch (error) {
+        throw new ApiError(500, "Unable to generate Access and refresh token")
+    }
+} )
+
 export {
     registerUser,
     loginUser,
@@ -289,5 +305,6 @@ export {
     getCurrentUser,
     changeCurrentPassword,
     updateUserAvatar,
-    getDailyAppointments
+    getDailyAppointments,
+    refreshAccessToken
 }

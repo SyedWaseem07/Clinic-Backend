@@ -12,9 +12,11 @@ import {
     getCurrentUser,
     changeCurrentPassword,
     updateUserAvatar,
-    getDailyAppointments
+    getDailyAppointments,
+    refreshAccessToken
 } from "../controllers/user.controller.js"
 import { verifyJWT } from "../middlewares/auth.middleware.js"
+import { verifyRefreshToken } from "../middlewares/refreshToken.middleware.js";
 
 const router = Router();
 
@@ -38,5 +40,7 @@ router.route("/changeAvatar").post(verifyJWT, upload.single("avatar"), updateUse
 
 router.route("/getCurrentUser").get(verifyJWT, getCurrentUser);
 router.route("/dailyAppointments").get(verifyJWT, getDailyAppointments);
+
+router.route("/refreshAccessToken").post(verifyRefreshToken, refreshAccessToken);
 
 export default router;
