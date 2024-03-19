@@ -17,7 +17,9 @@ app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 app.use(express.static("public"));
 
 app.use(cookieParser());
-
+app.get('/' , (req,res)=>{ 
+   res.send("Welcome to backend of clinic management system developed by --Syed Waseem(Code Surgery Squad)");  
+}) 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/users/receptionist", receiptionistRouter);
 app.use("/api/v1/users/doctor", doctorRouter);
