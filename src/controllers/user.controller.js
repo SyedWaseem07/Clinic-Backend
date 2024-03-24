@@ -86,7 +86,7 @@ const loginUser = asyncHandler( async (req, res) => {
 
     const { accessToken, refreshToken } = await generateAccessAndRefreshToken(existingUser._id);
 
-    const loggedInUser = await User.findById(existingUser._id).select("-password")
+    const loggedInUser = await User.findById(existingUser._id).select("-password -refreshToken")
 
     return res.status(200).cookie("accessToken", accessToken, {httpOnly: true, secure: true, maxAge: 7 * 24 * 60 * 60 * 1000})
     .cookie("refreshToken", refreshToken, {httpOnly: true, secure: true, maxAge: 15 * 24 * 60 * 60 * 1000})
