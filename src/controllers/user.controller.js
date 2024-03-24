@@ -88,8 +88,8 @@ const loginUser = asyncHandler( async (req, res) => {
 
     const loggedInUser = await User.findById(existingUser._id).select("-password")
 
-    return res.status(200).cookie("accessToken", accessToken, {httpOnly: true, secure: true, maxAge: 3 * 1000})
-    .cookie("refreshToken", refreshToken, {httpOnly: true, secure: true, maxAge: 10 * 24 * 60 * 60 * 1000})
+    return res.status(200).cookie("accessToken", accessToken, {httpOnly: true, secure: true, maxAge: 7 * 24 * 60 * 60 * 1000})
+    .cookie("refreshToken", refreshToken, {httpOnly: true, secure: true, maxAge: 15 * 24 * 60 * 60 * 1000})
     .json(new ApiResponse(200, loggedInUser, "User Logged in successfully"));
 } )
 
