@@ -21,7 +21,7 @@ const addAppointment = asyncHandler( async (req, res) => {
         $and: [{ patient_name }, { date_of_app }, { time_of_app }]
     })
 
-    if(existingApp) throw new ApiError(400, "Appointment already booked");
+    if(existingApp) throw new ApiError(409, "Appointment already booked");
 
     const appointment = await Appointment.create({
         patient_name, mobile_no, age, gender, date_of_app, time_of_app

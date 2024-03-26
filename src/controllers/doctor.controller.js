@@ -43,11 +43,12 @@ if(currentDate.getMonth() + 1 === 1 || currentDate.getMonth() + 1 === 3 || curre
             $lte: currentDate
         }
     })
-const dailyPatientCount = dailyPatientsInfo.length
-const weeklyPatientCount = weeklyPatientsInfo.length
-const monthlyPatientCount = monthlyPatientsInfo.length
+    const responseData = [];
+responseData.push({title:"Daily Patient Count", count: dailyPatientsInfo.length})
+responseData.push({title:"Weekly Patient Count", count: weeklyPatientsInfo.length})
+responseData.push({title:"Monthly Patient Count", count: monthlyPatientsInfo.length})
 
-    return res.status(200).json(new ApiResponse(200, {dailyPatientCount, weeklyPatientCount, monthlyPatientCount}, "Daily, Weekly and monthly patient countfetched sucessfully"))
+    return res.status(200).json(new ApiResponse(200, responseData, "Daily, Weekly and monthly patient countfetched sucessfully"))
 } ) 
 
 const dailyWeeklyMonthlyRevenue = asyncHandler( async (req, res) => {
@@ -102,8 +103,11 @@ if(currentDate.getMonth() + 1 === 1 || currentDate.getMonth() + 1 === 3 || curre
     for(let i = 0; i < monthlyRevenueInfo.length; ++i) 
     monthlyRevenue += monthlyRevenueInfo[i].amount;
 
-     
-    return res.status(200).json(new ApiResponse(200, {dailyRevenue, weeklyRevenue, monthlyRevenue}, "Daily, Weekly and monthly patient count fetched sucessfully"))
+    const responseData = [];
+responseData.push({title:"Daily Revenue", count: dailyRevenue})
+responseData.push({title:"Weekly Revenue", count: weeklyRevenue})
+responseData.push({title:"Monthly Revenue", count: monthlyRevenue})     
+    return res.status(200).json(new ApiResponse(200, responseData, "Daily, Weekly and monthly patient count fetched sucessfully"))
 } ) 
 
 // Average Appointments per day
