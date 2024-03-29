@@ -159,7 +159,7 @@ export const openapi = {
               "schema": {
                 "type": "object",
                 "example": {
-                  "username": "waseem",
+                  "username": "thewaseem",
                   "role": "doctor",
                   "password": "sw123456"
                 }
@@ -180,7 +180,13 @@ export const openapi = {
               "Access-Control-Allow-Origin": {
                 "schema": {
                   "type": "string",
-                  "example": "*"
+                  "example": "http://localhost:5173"
+                }
+              },
+              "Vary": {
+                "schema": {
+                  "type": "string",
+                  "example": "Origin"
                 }
               },
               "Access-Control-Allow-Credentials": {
@@ -192,7 +198,7 @@ export const openapi = {
               "Set-Cookie": {
                 "schema": {
                   "type": "string",
-                  "example": "refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWRkYTZhYzc3ZTY5NjdiYzEwYTcxNDAiLCJpYXQiOjE3MDkwMjUxMTYsImV4cCI6MTcwOTg4OTExNn0.MGFjtJT8drnEmGSGJNgDOcNQjYUqk3bBJlWwdGgi5l0; Path=/; HttpOnly; Secure"
+                  "example": "refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWRkYTZhYzc3ZTY5NjdiYzEwYTcxNDAiLCJpYXQiOjE3MTE3MDQ3NTIsImV4cCI6MTcxMzAwMDc1Mn0.UW3fRYYEE4xsiUepXDcRvgFVH8wFJ7U39oBfDkwwJBQ; Max-Age=1296000; Path=/; Expires=Sat, 13 Apr 2024 09:32:33 GMT; HttpOnly; Secure"
                 }
               },
               "Content-Type": {
@@ -204,19 +210,19 @@ export const openapi = {
               "Content-Length": {
                 "schema": {
                   "type": "integer",
-                  "example": "606"
+                  "example": "422"
                 }
               },
               "ETag": {
                 "schema": {
                   "type": "string",
-                  "example": "W/\"25e-6j+OU5XV5cQhMkhlquRdRrl9RJ8\""
+                  "example": "W/\"1a6-LrqLl+u4hbPRbOs6h1YA5SKGeA4\""
                 }
               },
               "Date": {
                 "schema": {
                   "type": "string",
-                  "example": "Tue, 27 Feb 2024 09:11:56 GMT"
+                  "example": "Fri, 29 Mar 2024 09:32:33 GMT"
                 }
               },
               "Connection": {
@@ -241,16 +247,15 @@ export const openapi = {
                   "statusCode": 200,
                   "data": {
                     "_id": "65dda6ac77e6967bc10a7140",
-                    "username": "waseem",
-                    "fullname": "Dr. Syed Waseem",
+                    "username": "thewaseem",
+                    "fullname": "Dr. Syed Waseem07",
                     "mobile_no": "9764512890",
                     "role": "doctor",
-                    "avatar": "http://res.cloudinary.com/dlolgpv91/image/upload/v1709024941/xo0y598nfddi62bnnmvm.jpg",
+                    "avatar": "http://res.cloudinary.com/dlolgpv91/image/upload/v1711621419/m2jawgxkkxe5ile5qnfg.avif",
                     "email": "swaseem@gmail.com",
                     "createdAt": "2024-02-27T09:09:00.613Z",
-                    "updatedAt": "2024-02-27T09:11:56.828Z",
-                    "__v": 0,
-                    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWRkYTZhYzc3ZTY5NjdiYzEwYTcxNDAiLCJpYXQiOjE3MDkwMjUxMTYsImV4cCI6MTcwOTg4OTExNn0.MGFjtJT8drnEmGSGJNgDOcNQjYUqk3bBJlWwdGgi5l0"
+                    "updatedAt": "2024-03-29T09:32:32.997Z",
+                    "__v": 0
                   },
                   "message": "User Logged in successfully",
                   "success": true
@@ -477,7 +482,13 @@ export const openapi = {
               "Access-Control-Allow-Origin": {
                 "schema": {
                   "type": "string",
-                  "example": "*"
+                  "example": "http://localhost:5173"
+                }
+              },
+              "Vary": {
+                "schema": {
+                  "type": "string",
+                  "example": "Origin"
                 }
               },
               "Access-Control-Allow-Credentials": {
@@ -495,19 +506,19 @@ export const openapi = {
               "Content-Length": {
                 "schema": {
                   "type": "integer",
-                  "example": "105"
+                  "example": "3790"
                 }
               },
               "ETag": {
                 "schema": {
                   "type": "string",
-                  "example": "W/\"69-qjI0cztME22LY5oYqHv+gAZXBf8\""
+                  "example": "W/\"ece-4Hb6uXJdiuH2fpy3F7m4kRAWQZA\""
                 }
               },
               "Date": {
                 "schema": {
                   "type": "string",
-                  "example": "Sat, 24 Feb 2024 05:32:06 GMT"
+                  "example": "Fri, 29 Mar 2024 09:34:05 GMT"
                 }
               },
               "Connection": {
@@ -530,7 +541,186 @@ export const openapi = {
                 },
                 "example": {
                   "statusCode": 200,
-                  "data": [],
+                  "data": [
+                    {
+                      "_id": "65ddb80aceaf91eece42890a",
+                      "patient_name": "Ramesh Patil",
+                      "prescriptions": [],
+                      "mobile_no": "9970543214",
+                      "age": 34,
+                      "weight": 72,
+                      "gender": "Male",
+                      "symptoms": "Cold,Cough",
+                      "report": [],
+                      "createdAt": "2024-02-27T10:23:06.230Z",
+                      "updatedAt": "2024-02-28T17:35:23.725Z",
+                      "__v": 0,
+                      "last_visited": "2024-02-28T00:00:00.000Z"
+                    },
+                    {
+                      "_id": "65ddb859ceaf91eece42890e",
+                      "patient_name": "Digvijay Kale",
+                      "prescriptions": [],
+                      "mobile_no": "9771234567",
+                      "age": 26,
+                      "weight": 55,
+                      "gender": "Male",
+                      "symptoms": "Cold",
+                      "report": [],
+                      "createdAt": "2024-02-27T10:24:25.233Z",
+                      "updatedAt": "2024-02-27T10:24:25.233Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "65ddb8c2ceaf91eece428912",
+                      "patient_name": "Anjali Jadhav",
+                      "prescriptions": [],
+                      "mobile_no": "9865234567",
+                      "age": 25,
+                      "weight": 50,
+                      "gender": "Female",
+                      "symptoms": "Cold,Fever",
+                      "report": [],
+                      "createdAt": "2024-02-27T10:26:10.815Z",
+                      "updatedAt": "2024-02-27T10:26:10.815Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "65df6fb736dc639fe4b2e1ce",
+                      "patient_name": "Shahrukh Patel",
+                      "prescriptions": [],
+                      "mobile_no": "9761234567",
+                      "age": 28,
+                      "weight": 52,
+                      "gender": "Male",
+                      "symptoms": "Fever,Vomit",
+                      "report": [],
+                      "last_visited": "2024-02-28T00:00:00.000Z",
+                      "createdAt": "2024-02-28T17:39:03.923Z",
+                      "updatedAt": "2024-02-28T17:39:03.923Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "65df78607ad7afd1f2a6163c",
+                      "patient_name": "Rekha Survase",
+                      "prescriptions": [],
+                      "mobile_no": "9801234567",
+                      "age": 23,
+                      "weight": 41,
+                      "gender": "Female",
+                      "symptoms": "Cold,Cough",
+                      "report": [],
+                      "last_visited": "2024-02-19T00:00:00.000Z",
+                      "createdAt": "2024-02-28T18:16:00.542Z",
+                      "updatedAt": "2024-02-28T18:16:00.542Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "6602a773e17baf8e3bed8fb2",
+                      "patient_name": "name surname",
+                      "prescriptions": [],
+                      "mobile_no": "1234567890",
+                      "age": 11,
+                      "weight": 45,
+                      "gender": "Male",
+                      "symptoms": "Dehydration",
+                      "report": [],
+                      "last_visited": "2024-03-26T00:00:00.000Z",
+                      "createdAt": "2024-03-26T10:46:11.494Z",
+                      "updatedAt": "2024-03-26T10:46:11.494Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "6602b6da525b16c2a1de37c2",
+                      "patient_name": "hello world",
+                      "prescriptions": [],
+                      "mobile_no": "956549564569856985689573873475",
+                      "age": 10,
+                      "weight": 10,
+                      "gender": "Male",
+                      "symptoms": "4niu n4iufi4ubyfiu5 b4oiu5ybi4ub",
+                      "report": [],
+                      "last_visited": "2024-03-26T00:00:00.000Z",
+                      "createdAt": "2024-03-26T11:51:54.174Z",
+                      "updatedAt": "2024-03-26T11:51:54.174Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "6602b861525b16c2a1de37f0",
+                      "patient_name": "Samarth Mule",
+                      "prescriptions": [],
+                      "mobile_no": "1234564568",
+                      "age": 20,
+                      "weight": 65,
+                      "gender": "Male",
+                      "symptoms": "Cold",
+                      "report": [],
+                      "last_visited": "2024-03-26T00:00:00.000Z",
+                      "createdAt": "2024-03-26T11:58:25.984Z",
+                      "updatedAt": "2024-03-26T11:58:25.984Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "6603a423779255e9ed8522f3",
+                      "patient_name": "John Doe",
+                      "prescriptions": [],
+                      "mobile_no": "9527343353",
+                      "age": 25,
+                      "weight": 65,
+                      "gender": "Male",
+                      "symptoms": "Cough, High Fever",
+                      "report": [],
+                      "last_visited": "2024-03-19T00:00:00.000Z",
+                      "createdAt": "2024-03-27T04:44:19.708Z",
+                      "updatedAt": "2024-03-27T04:44:19.708Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "6603bd794c6dd19c219fef4d",
+                      "patient_name": "abcd efg",
+                      "prescriptions": [],
+                      "mobile_no": "1234567890",
+                      "age": 20,
+                      "weight": 50,
+                      "gender": "Male",
+                      "symptoms": "Cold",
+                      "report": [],
+                      "last_visited": "2024-03-18T00:00:00.000Z",
+                      "createdAt": "2024-03-27T06:32:25.580Z",
+                      "updatedAt": "2024-03-27T06:32:25.580Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "6603be122c79c532e9165cd3",
+                      "patient_name": "dfgdfgfd",
+                      "prescriptions": [],
+                      "mobile_no": "35356356346",
+                      "age": 345,
+                      "weight": 345345,
+                      "gender": "Male",
+                      "symptoms": "34534534 34 tthrth rt363 ",
+                      "report": [],
+                      "last_visited": "2024-03-26T00:00:00.000Z",
+                      "createdAt": "2024-03-27T06:34:58.189Z",
+                      "updatedAt": "2024-03-27T06:34:58.189Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "66041aa7ca6c1b4a907c7bda",
+                      "patient_name": "Hello World",
+                      "prescriptions": [],
+                      "mobile_no": "343553",
+                      "age": 55,
+                      "weight": 55,
+                      "gender": "Male",
+                      "symptoms": "dfgdfg fdgd fdg",
+                      "report": [],
+                      "last_visited": "2024-03-27T00:00:00.000Z",
+                      "createdAt": "2024-03-27T13:09:59.948Z",
+                      "updatedAt": "2024-03-27T13:09:59.948Z",
+                      "__v": 0
+                    }
+                  ],
                   "message": "All Visited patients details fetched successfully",
                   "success": true
                 }
@@ -560,7 +750,13 @@ export const openapi = {
               "Access-Control-Allow-Origin": {
                 "schema": {
                   "type": "string",
-                  "example": "*"
+                  "example": "http://localhost:5173"
+                }
+              },
+              "Vary": {
+                "schema": {
+                  "type": "string",
+                  "example": "Origin"
                 }
               },
               "Access-Control-Allow-Credentials": {
@@ -578,19 +774,19 @@ export const openapi = {
               "Content-Length": {
                 "schema": {
                   "type": "integer",
-                  "example": "205"
+                  "example": "1571"
                 }
               },
               "ETag": {
                 "schema": {
                   "type": "string",
-                  "example": "W/\"cd-y3liHiNiJ++ZIIIJO+eMy7mLSqA\""
+                  "example": "W/\"623-GemMkrq7cmvUTAzGSWJfQYfbn4g\""
                 }
               },
               "Date": {
                 "schema": {
                   "type": "string",
-                  "example": "Sat, 24 Feb 2024 07:42:44 GMT"
+                  "example": "Fri, 29 Mar 2024 09:34:32 GMT"
                 }
               },
               "Connection": {
@@ -615,10 +811,75 @@ export const openapi = {
                   "statusCode": 200,
                   "data": [
                     {
-                      "_id": "65d97ff87923a153776f2438",
-                      "patient_name": "patient1 surname1",
+                      "_id": "65ddba12ceaf91eece42892d",
+                      "patient_name": "Ramesh Patil",
                       "amount": 100,
-                      "date": "24-2-2024",
+                      "date": "2024-02-27",
+                      "createdAt": "2024-02-27T10:31:46.914Z",
+                      "updatedAt": "2024-02-27T10:31:46.914Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "65ddba38ceaf91eece428930",
+                      "patient_name": "Digvijay Kale",
+                      "amount": 100,
+                      "date": "2024-02-27",
+                      "createdAt": "2024-02-27T10:32:24.063Z",
+                      "updatedAt": "2024-02-27T10:32:24.063Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "65ddba48ceaf91eece428933",
+                      "patient_name": "Anjali Jadhav",
+                      "amount": 100,
+                      "date": "2024-02-25",
+                      "createdAt": "2024-02-27T10:32:40.695Z",
+                      "updatedAt": "2024-02-27T10:32:40.695Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "65df6fcf36dc639fe4b2e1d3",
+                      "patient_name": "Shahrukh Patel",
+                      "amount": 100,
+                      "date": "2024-02-28",
+                      "createdAt": "2024-02-28T17:39:27.270Z",
+                      "updatedAt": "2024-02-28T17:39:27.270Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "66014ae8c010f230435227a8",
+                      "patient_name": "Patient1 name1",
+                      "amount": 100,
+                      "date": "2024-03-26",
+                      "createdAt": "2024-03-25T09:59:04.370Z",
+                      "updatedAt": "2024-03-25T09:59:04.370Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "66015dae30d235baaf718bdb",
+                      "patient_name": "Samarth Mule",
+                      "amount": 123,
+                      "date": "2024-03-25",
+                      "createdAt": "2024-03-25T11:19:10.322Z",
+                      "updatedAt": "2024-03-25T11:19:10.322Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "66015daf016d6094fa019e06",
+                      "patient_name": "Dhanraj Trivedi",
+                      "amount": 200,
+                      "date": "2024-03-26",
+                      "createdAt": "2024-03-25T11:19:11.718Z",
+                      "updatedAt": "2024-03-25T11:19:11.718Z",
+                      "__v": 0
+                    },
+                    {
+                      "_id": "66015e0b5dc42973d11315ef",
+                      "patient_name": "Dhanraj",
+                      "amount": 100,
+                      "date": "2024-03-25",
+                      "createdAt": "2024-03-25T11:20:43.091Z",
+                      "updatedAt": "2024-03-25T11:20:43.091Z",
                       "__v": 0
                     }
                   ],
@@ -783,7 +1044,13 @@ export const openapi = {
               "Access-Control-Allow-Origin": {
                 "schema": {
                   "type": "string",
-                  "example": "*"
+                  "example": "http://localhost:5173"
+                }
+              },
+              "Vary": {
+                "schema": {
+                  "type": "string",
+                  "example": "Origin"
                 }
               },
               "Access-Control-Allow-Credentials": {
@@ -801,19 +1068,19 @@ export const openapi = {
               "Content-Length": {
                 "schema": {
                   "type": "integer",
-                  "example": "622"
+                  "example": "436"
                 }
               },
               "ETag": {
                 "schema": {
                   "type": "string",
-                  "example": "W/\"26e-R8pBFwtrorGVboq4e9p5eeILGIA\""
+                  "example": "W/\"1b4-YgaMQX1qwWzmdTd/hYG+hb0y5WI\""
                 }
               },
               "Date": {
                 "schema": {
                   "type": "string",
-                  "example": "Tue, 27 Feb 2024 06:28:12 GMT"
+                  "example": "Fri, 29 Mar 2024 09:36:38 GMT"
                 }
               },
               "Connection": {
@@ -837,17 +1104,16 @@ export const openapi = {
                 "example": {
                   "statusCode": 200,
                   "data": {
-                    "_id": "65d88143cc5cdc2e7df150fe",
-                    "username": "name2",
-                    "fullname": "name2 surname2",
-                    "mobile_no": "1234567690",
-                    "role": "receptionist",
-                    "avatar": "http://res.cloudinary.com/dlolgpv91/image/upload/v1708687685/w1bggvxibmaas4acrzgq.jpg",
-                    "email": "name1@gmail.com",
-                    "createdAt": "2024-02-23T11:28:03.427Z",
-                    "updatedAt": "2024-02-27T06:24:25.968Z",
-                    "__v": 0,
-                    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQ4ODE0M2NjNWNkYzJlN2RmMTUwZmUiLCJpYXQiOjE3MDkwMTUwNjUsImV4cCI6MTcwOTg3OTA2NX0.UBzSkHkclFzTVSW_q0MNBHBAdqIn6354uSS7s8MxDbY"
+                    "_id": "65dda6ac77e6967bc10a7140",
+                    "username": "thewaseem",
+                    "fullname": "Dr. Syed Waseem07",
+                    "mobile_no": "9764512890",
+                    "role": "doctor",
+                    "avatar": "http://res.cloudinary.com/dlolgpv91/image/upload/v1711621419/m2jawgxkkxe5ile5qnfg.avif",
+                    "email": "swaseem@gmail.com",
+                    "createdAt": "2024-02-27T09:09:00.613Z",
+                    "updatedAt": "2024-03-29T09:35:59.419Z",
+                    "__v": 0
                   },
                   "message": "Current User details fetched successfully",
                   "success": true
@@ -989,7 +1255,13 @@ export const openapi = {
               "Access-Control-Allow-Origin": {
                 "schema": {
                   "type": "string",
-                  "example": "*"
+                  "example": "http://localhost:5173"
+                }
+              },
+              "Vary": {
+                "schema": {
+                  "type": "string",
+                  "example": "Origin"
                 }
               },
               "Access-Control-Allow-Credentials": {
@@ -1007,19 +1279,19 @@ export const openapi = {
               "Content-Length": {
                 "schema": {
                   "type": "integer",
-                  "example": "608"
+                  "example": "418"
                 }
               },
               "ETag": {
                 "schema": {
                   "type": "string",
-                  "example": "W/\"260-/yjpUqxBQ5OO4LdA4WcNQG5Eme4\""
+                  "example": "W/\"1a2-XGM8izab16iwrrhQgGc99AE1fEA\""
                 }
               },
               "Date": {
                 "schema": {
                   "type": "string",
-                  "example": "Tue, 27 Feb 2024 06:32:10 GMT"
+                  "example": "Fri, 29 Mar 2024 09:43:20 GMT"
                 }
               },
               "Connection": {
@@ -1043,17 +1315,16 @@ export const openapi = {
                 "example": {
                   "statusCode": 200,
                   "data": {
-                    "_id": "65d88143cc5cdc2e7df150fe",
-                    "username": "name2",
-                    "fullname": "name2 surname2",
-                    "mobile_no": "1234567690",
-                    "role": "receptionist",
-                    "avatar": "http://res.cloudinary.com/dlolgpv91/image/upload/v1709015530/prfm7ca16dsxqfwqp985.jpg",
-                    "email": "name1@gmail.com",
-                    "createdAt": "2024-02-23T11:28:03.427Z",
-                    "updatedAt": "2024-02-27T06:32:10.698Z",
-                    "__v": 0,
-                    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQ4ODE0M2NjNWNkYzJlN2RmMTUwZmUiLCJpYXQiOjE3MDkwMTUwNjUsImV4cCI6MTcwOTg3OTA2NX0.UBzSkHkclFzTVSW_q0MNBHBAdqIn6354uSS7s8MxDbY"
+                    "_id": "65dda6ac77e6967bc10a7140",
+                    "username": "thewaseem",
+                    "fullname": "Dr. Syed Waseem",
+                    "mobile_no": "9701234568",
+                    "role": "doctor",
+                    "avatar": "http://res.cloudinary.com/dlolgpv91/image/upload/v1711705400/ycw4a0dlnntsngjmgp67.avif",
+                    "email": "name2@gmail.com",
+                    "createdAt": "2024-02-27T09:09:00.613Z",
+                    "updatedAt": "2024-03-29T09:43:20.607Z",
+                    "__v": 0
                   },
                   "message": "Avatar updated successfully",
                   "success": true
@@ -1081,8 +1352,7 @@ export const openapi = {
                   "fullname": "Ashish Vaidya",
                   "mobile_no": "9701234568",
                   "role": "receptionist",
-                  "email": "name2@gmail.com",
-                  "password": "nschanged"
+                  "email": "name2@gmail.com"
                 }
               }
             }
@@ -1101,7 +1371,13 @@ export const openapi = {
               "Access-Control-Allow-Origin": {
                 "schema": {
                   "type": "string",
-                  "example": "*"
+                  "example": "http://localhost:5173"
+                }
+              },
+              "Vary": {
+                "schema": {
+                  "type": "string",
+                  "example": "Origin"
                 }
               },
               "Access-Control-Allow-Credentials": {
@@ -1119,19 +1395,19 @@ export const openapi = {
               "Content-Length": {
                 "schema": {
                   "type": "integer",
-                  "example": "623"
+                  "example": "434"
                 }
               },
               "ETag": {
                 "schema": {
                   "type": "string",
-                  "example": "W/\"26f-iPCymAdOonm1sQ6KHPsRz6UQZEk\""
+                  "example": "W/\"1b2-kvj+14VNRkvFEWgprrZr3biKQh4\""
                 }
               },
               "Date": {
                 "schema": {
                   "type": "string",
-                  "example": "Tue, 27 Feb 2024 06:35:29 GMT"
+                  "example": "Fri, 29 Mar 2024 09:38:13 GMT"
                 }
               },
               "Connection": {
@@ -1155,17 +1431,16 @@ export const openapi = {
                 "example": {
                   "statusCode": 200,
                   "data": {
-                    "_id": "65d88143cc5cdc2e7df150fe",
-                    "username": "receptionist",
-                    "fullname": "Ashish Vaidya",
+                    "_id": "65dda6ac77e6967bc10a7140",
+                    "username": "thewaseem",
+                    "fullname": "Dr. Syed Waseem",
                     "mobile_no": "9701234568",
-                    "role": "receptionist",
-                    "avatar": "http://res.cloudinary.com/dlolgpv91/image/upload/v1709015530/prfm7ca16dsxqfwqp985.jpg",
+                    "role": "doctor",
+                    "avatar": "http://res.cloudinary.com/dlolgpv91/image/upload/v1711621419/m2jawgxkkxe5ile5qnfg.avif",
                     "email": "name2@gmail.com",
-                    "createdAt": "2024-02-23T11:28:03.427Z",
-                    "updatedAt": "2024-02-27T06:35:29.033Z",
-                    "__v": 0,
-                    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQ4ODE0M2NjNWNkYzJlN2RmMTUwZmUiLCJpYXQiOjE3MDkwMTUwNjUsImV4cCI6MTcwOTg3OTA2NX0.UBzSkHkclFzTVSW_q0MNBHBAdqIn6354uSS7s8MxDbY"
+                    "createdAt": "2024-02-27T09:09:00.613Z",
+                    "updatedAt": "2024-03-29T09:38:13.610Z",
+                    "__v": 0
                   },
                   "message": "Account details updated successfully",
                   "success": true

@@ -115,19 +115,19 @@ const logoutUser = asyncHandler( async (req, res) => {
 // update user details
 // Post:- /api/v1/users/update:username
 const updateUserDetails = asyncHandler( async (req, res) => {
-    const { username, fullname, mobile_no, role, email, password } = req.body;
+    const { username, fullname, mobile_no, role, email } = req.body;
 
-    if(!username || !fullname || !mobile_no || !role || !email || !password) 
+    if(!username || !fullname || !mobile_no || !role || !email) 
         throw new ApiError(400, "All feilds are required except avatar")
     
         const user = await User.findByIdAndUpdate(req.user?._id,
             {
                 $set: {
-                    username, fullname, mobile_no, role, email, password
+                    username, fullname, mobile_no, role, email
                 }
             }, 
             { new:true }
-        ).select("-password");
+        ).select("-password -refreshToken");
     
         return res.status(200).json(new ApiResponse(200, user, "Account details updated successfully"));
 
@@ -170,7 +170,7 @@ const updateUserAvatar = asyncHandler( async (req, res) => {
             $set: { avatar: avatar.url }
         },
         {new: true}
-    ).select("-password")
+    ).select("-refreshToken -password")
 
     return res.status(200).json(new ApiResponse(200, user, "Avatar updated successfully"));
 })
