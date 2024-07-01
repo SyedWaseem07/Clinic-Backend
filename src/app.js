@@ -11,11 +11,9 @@ import postmanToOpenApi from "postman-to-openapi";
 
 const app = express()
 
-import { openapi } from "../openapi.js" 
+import { openapi } from "../openapi.js"
 
-app.use(cors({
-    origin: "https://sparkly-moonbeam-be963d.netlify.app/"
-}));
+app.use(cors());
 
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
@@ -62,8 +60,8 @@ app.get('/generate-yml', async (req, res) => {
         console.log(err)
     }
 });
-app.get('/' , (req,res)=>{ 
-    res.send("Welcome to backend of clinic management system developed by --Syed Waseem(Code Surgery Squad)");  
- }) 
+app.get('/', (req, res) => {
+    res.send("Welcome to backend of clinic management system developed by --Syed Waseem(Code Surgery Squad)");
+})
 export { app }
 
